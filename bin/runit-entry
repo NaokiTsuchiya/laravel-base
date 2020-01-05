@@ -1,0 +1,23 @@
+#!/bin/sh
+
+SVDIR=${SVDIR:-/var/runit}
+
+run_sv_stop()
+{
+  if [ -n "${RUN_SV_STOP}" ]; then
+    echo "Stopping runit service:"
+    for x in $(ls -d ${SVDIR}/*); do
+      echo "---> "$(basename "$x")
+      sv shutdown $x &> /dev/null
+    done
+    RUN_SV_STOP=
+  fi
+}
+
+export SVDIR=${SVDIR} RUN_SV_STOP=1
+
+chmod -R 755 ${SVDIR}
+
+trap "run_sv_stop; exit" EXIT INT TERM KILL
+
+exec runsvdir ${SVDIR}
