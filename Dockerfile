@@ -2,30 +2,30 @@ FROM alpine:3.11
 
 RUN apk --no-cache update \
  && apk --no-cache add \
-      runit \
+      curl \
       nginx \
       php7 \
-      php7-fpm \
-      php7-json \
       php7-bcmath \
       php7-ctype \
+      php7-dom \
+      php7-fpm \
+      php7-json \
       php7-mbstring \
+      php7-opcache \
+      php7-openssl \
       php7-pdo \
       php7-pdo_mysql \
-      php7-tokenizer \
-      php7-openssl \
-      php7-xml \
-      php7-dom \
-      php7-phar \
-      php7-zip \
-      php7-xmlwriter \
-      php7-session \
       php7-pecl-xdebug \
-      php7-opcache \
+      php7-phar \
       php7-redis \
-      tzdata \
+      php7-session \
+      php7-tokenizer \
+      php7-xml \
+      php7-xmlwriter \
+      php7-zip \
+      runit \
       su-exec \
-      curl \
+      tzdata \
  && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
  && apk --no-cache del tzdata \
  && mkdir -p /var/runit \
