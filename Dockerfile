@@ -32,6 +32,10 @@ RUN apk --no-cache update \
  && rm -f /etc/nginx/conf.d/default.conf \
  && mkdir -p /run/nginx \
  && sed -i \
+      -e 's|\([[:space:]]*\)access_log \(.*\)$|access_log /dev/stdout main;|' \
+      -e 's|^error_log .*$|error_log /dev/stderr warn;|' \
+      /etc/nginx/nginx.conf \
+ && sed -i \
       -e 's|^;\?date.timezone =.*|date.timezone = "Asia/Tokyo"|' \
       -e 's|^;\?error_log = php_.*|error_log = "php://stderr"|' \
       -e 's|^;\?error_reporting =.*|error_reporting = E_ALL|' \
