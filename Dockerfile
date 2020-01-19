@@ -68,6 +68,7 @@ RUN apk --no-cache update \
 
 COPY /var/runit/ /var/runit/
 COPY /bin/runit-entry /usr/local/bin/
+COPY /etc/ /etc/
 ENTRYPOINT ["/usr/local/bin/runit-entry"]
 
 WORKDIR /app
