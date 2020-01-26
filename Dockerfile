@@ -70,6 +70,12 @@ RUN apk --no-cache update \
  && mkdir -p /app \
  && chown nginx:nginx /app
 
+ARG WAIT_VERSION
+RUN [ -z "${WAIT_VERSION}" ] && true \
+ || ( curl -L -o /usr/local/bin/wait https://github.com/ufoscout/docker-compose-wait/releases/download/${WAIT_VERSION}/wait \
+ && chmod +x /usr/local/bin/wait )
+
+
 COPY /var/runit/ /var/runit/
 COPY /bin/runit-entry /usr/local/bin/
 COPY /etc/ /etc/

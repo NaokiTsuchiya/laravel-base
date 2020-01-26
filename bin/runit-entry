@@ -14,10 +14,16 @@ run_sv_stop()
   fi
 }
 
+CURDIR=$(cd $(dirname $0) && pwd)
+if [ -n "${WAIT_HOSTS}" -a -f "${CURDIR}/wait" ]; then
+  ${CURDIR}/wait
+fi
+
 export SVDIR=${SVDIR} RUN_SV_STOP=1
 
 chmod -R 755 ${SVDIR}
 
 trap "run_sv_stop; exit" EXIT INT TERM KILL
 
-exec runsvdir ${SVDIR}
+exec runsvdir ${SVDIR} &
+wait
